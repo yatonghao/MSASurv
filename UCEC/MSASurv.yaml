@@ -1,0 +1,43 @@
+General:
+    comment: MSASurv
+    seed: 7
+    gpus: [0]
+    epochs: &epoch 20 #
+    grad_acc: 32
+    frozen_bn: False
+    patience: 5
+    server: test #train #test
+    log_path: /home/dashuju02/Desktop/MSASurv/logs/ctrans/cluster_4/
+
+Data:
+    dataset_name: tcga_data
+    data_shuffle: False
+    csv_path: /home/dashuju02/Desktop/MSASurv/datasets_csv/tcga_ucec_all_clean.csv.zip
+    data_dir: /home/dashuju02/hyt/dataset/TCGA_features/UCEC/
+    label_dir: /home/dashuju02/Desktop/MSASurv/splits/5foldcv/tcga_ucec/
+    fold: 5
+
+    train_dataloader:
+        batch_size: 1 
+        num_workers: 12
+
+    test_dataloader:
+        batch_size: 1
+        num_workers: 12
+
+Model:
+    name: MSASurv
+    n_classes: 4
+
+
+Optimizer:
+    opt: lookahead_radam
+    lr: 0.0002
+    opt_eps: null #
+    opt_betas: null
+    momentum: null #0.9
+    weight_decay: 0.00001
+
+Loss:
+    alpha_surv: 0.0 #How much to weigh uncensored patients
+
